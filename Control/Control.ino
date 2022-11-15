@@ -79,12 +79,16 @@ void setup(void) {
   });
 
   server.on("/off", []() {
-    delay(200);
-    irsend.sendRaw(powerOff, 351, 38);
-    delay(200);
-    irsend.sendRaw(powerOff, 351, 38);
-    Serial.println("Enviou");
-    server.send(200);
+       if (server.arg("password") == "<password>") {  // If password are correct
+        delay(200);
+        irsend.sendRaw(powerOff, 351, 38);
+        delay(200);
+        irsend.sendRaw(powerOff, 351, 38);
+        Serial.println("Enviou");
+        server.send(200);
+      } else {  //  password don't match
+        server.send(401, "text/plain", "401: Unauthorized");
+      }
   });
 
   server.onNotFound(handleNotFound);
