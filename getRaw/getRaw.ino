@@ -37,9 +37,10 @@ const uint16_t kMinUnknownSize = 12;
 
 IRrecv irrecv(kRecvPin, kCaptureBufferSize, kTimeout, true);
 
-decode_results results;  // Somewhere to store the results
+decode_results results;  
+// Somewhere to store the results
 
-void dumpACInfo(decode_results *results) {
+void dumpACInfo(decode_results * results) {
   String description = "";
 #if DECODE_DAIKIN
   if (results->decode_type == DAIKIN) {
@@ -47,42 +48,48 @@ void dumpACInfo(decode_results *results) {
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_DAIKIN
+#endif  
+// DECODE_DAIKIN
 #if DECODE_DAIKIN2
   if (results->decode_type == DAIKIN2) {
     IRDaikin2 ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_DAIKIN2
+#endif  
+// DECODE_DAIKIN2
 #if DECODE_DAIKIN216
   if (results->decode_type == DAIKIN216) {
     IRDaikin216 ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_DAIKIN216
+#endif  
+// DECODE_DAIKIN216
 #if DECODE_FUJITSU_AC
   if (results->decode_type == FUJITSU_AC) {
     IRFujitsuAC ac(0);
     ac.setRaw(results->state, results->bits / 8);
     description = ac.toString();
   }
-#endif  // DECODE_FUJITSU_AC
+#endif  
+// DECODE_FUJITSU_AC
 #if DECODE_KELVINATOR
   if (results->decode_type == KELVINATOR) {
     IRKelvinatorAC ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_KELVINATOR
+#endif  
+// DECODE_KELVINATOR
 #if DECODE_MITSUBISHI_AC
   if (results->decode_type == MITSUBISHI_AC) {
     IRMitsubishiAC ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_MITSUBISHI_AC
+#endif  
+// DECODE_MITSUBISHI_AC
 #if DECODE_MITSUBISHIHEAVY
   if (results->decode_type == MITSUBISHI_HEAVY_88) {
     IRMitsubishiHeavy88Ac ac(0);
@@ -94,56 +101,65 @@ void dumpACInfo(decode_results *results) {
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_MITSUBISHIHEAVY
+#endif  
+// DECODE_MITSUBISHIHEAVY
 #if DECODE_TOSHIBA_AC
   if (results->decode_type == TOSHIBA_AC) {
     IRToshibaAC ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_TOSHIBA_AC
+#endif  
+// DECODE_TOSHIBA_AC
 #if DECODE_GREE
   if (results->decode_type == GREE) {
     IRGreeAC ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_GREE
+#endif  
+// DECODE_GREE
 #if DECODE_MIDEA
   if (results->decode_type == MIDEA) {
     IRMideaAC ac(0);
-    ac.setRaw(results->value);  // Midea uses value instead of state.
+    ac.setRaw(results->value);  
+    // Midea uses value instead of state.
     description = ac.toString();
   }
-#endif  // DECODE_MIDEA
+#endif  
+// DECODE_MIDEA
 #if DECODE_HAIER_AC
   if (results->decode_type == HAIER_AC) {
     IRHaierAC ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_HAIER_AC
+#endif  
+// DECODE_HAIER_AC
 #if DECODE_HAIER_AC_YRW02
   if (results->decode_type == HAIER_AC_YRW02) {
     IRHaierACYRW02 ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_HAIER_AC_YRW02
+#endif  
+// DECODE_HAIER_AC_YRW02
 #if DECODE_SAMSUNG_AC
   if (results->decode_type == SAMSUNG_AC) {
     IRSamsungAc ac(0);
     ac.setRaw(results->state, results->bits / 8);
     description = ac.toString();
   }
-#endif  // DECODE_SAMSUNG_AC
+#endif  
+// DECODE_SAMSUNG_AC
 #if DECODE_COOLIX
   if (results->decode_type == COOLIX) {
     IRCoolixAC ac(0);
     ac.setRaw(results->value);  // Coolix uses value instead of state.
     description = ac.toString();
   }
-#endif  // DECODE_COOLIX
+#endif  
+// DECODE_COOLIX
 #if DECODE_PANASONIC_AC
   if (results->decode_type == PANASONIC_AC &&
       results->bits > kPanasonicAcShortBits) {
@@ -151,42 +167,48 @@ void dumpACInfo(decode_results *results) {
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_PANASONIC_AC
+#endif  
+// DECODE_PANASONIC_AC
 #if DECODE_HITACHI_AC
   if (results->decode_type == HITACHI_AC) {
     IRHitachiAc ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_HITACHI_AC
+#endif  
+// DECODE_HITACHI_AC
 #if DECODE_WHIRLPOOL_AC
   if (results->decode_type == WHIRLPOOL_AC) {
     IRWhirlpoolAc ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_WHIRLPOOL_AC
+#endif  
+// DECODE_WHIRLPOOL_AC
 #if DECODE_VESTEL_AC
   if (results->decode_type == VESTEL_AC) {
     IRVestelAc ac(0);
     ac.setRaw(results->value);  // Like Coolix, use value instead of state.
     description = ac.toString();
   }
-#endif  // DECODE_VESTEL_AC
+#endif  
+// DECODE_VESTEL_AC
 #if DECODE_TECO
   if (results->decode_type == TECO) {
     IRTecoAc ac(0);
     ac.setRaw(results->value);  // Like Coolix, use value instead of state.
     description = ac.toString();
   }
-#endif  // DECODE_TECO
+#endif  
+// DECODE_TECO
 #if DECODE_TCL112AC
   if (results->decode_type == TCL112AC) {
     IRTcl112Ac ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_TCL112AC
+#endif  
+// DECODE_TCL112AC
   if (description != "") Serial.println("Mesg Desc.: " + description);
 }
 
@@ -201,8 +223,10 @@ void setup() {
 #if DECODE_HASH
   // Ignore messages with less than minimum on or off pulses.
   irrecv.setUnknownThreshold(kMinUnknownSize);
-#endif                  // DECODE_HASH
-  irrecv.enableIRIn();  // Start the receiver
+#endif                  
+// DECODE_HASH
+  irrecv.enableIRIn();  
+  // Start the receiver
 }
 
 void loop() {
@@ -219,8 +243,10 @@ void loop() {
           kCaptureBufferSize);
     // Display the basic output of what we found.
     Serial.print(resultToHumanReadableBasic(&results));
-    dumpACInfo(&results);  // Display any extra A/C info if we have it.
-    yield();  // Feed the WDT as the text output can take a while to print.
+    dumpACInfo(&results);  
+    // Display any extra A/C info if we have it.
+    yield();  
+    // Feed the WDT as the text output can take a while to print.
 
     // Display the library version the message was captured with.
     Serial.print("Library   : v");
@@ -229,11 +255,14 @@ void loop() {
 
     // Output RAW timing info of the result.
     Serial.println(resultToTimingInfo(&results));
-    yield();  // Feed the WDT (again)
+    yield();  
+    // Feed the WDT (again)
 
     // Output the results as source code
     Serial.println(resultToSourceCode(&results));
-    Serial.println("");  // Blank line between entries
-    yield();             // Feed the WDT (again)
+    Serial.println("");  
+    // Blank line between entries
+    yield();            
+    // Feed the WDT (again)
   }
 }

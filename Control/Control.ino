@@ -45,34 +45,38 @@ void setup(void) {
   irsend.begin();
 #if ESP8266
   Serial.begin(115200, SERIAL_8N1, SERIAL_TX_ONLY);
-#else   // ESP8266
+#else   
+// ESP8266
   Serial.begin(115200, SERIAL_8N1);
-#endif  // ESP8266
+#endif  
+// ESP8266
 
   server.on("/", handleRoot);
 
   server.on("/on", []() {
-    if (server.arg("password") == "<password>") {  // If password are correct
+    if (server.arg("password") == "<password>") {  
+      // If password are correct
       delay(200);
       irsend.sendRaw(powerOn, 349, 38);
       delay(200);
       irsend.sendRaw(powerOn, 349, 38);
-      Serial.println("Enviou");
-      server.send(200, "ligou");
-    } else {  //  password don't match
+      server.send(200, "turned on");
+    } else {  
+      //  password don't match
       server.send(401, "text/plain", "401: Unauthorized");
     }
   });
 
   server.on("/off", []() {
-       if (server.arg("password") == "<password>") {  // If password are correct
+       if (server.arg("password") == "<password>") {  
+        // If password are correct
         delay(200);
         irsend.sendRaw(powerOff, 351, 38);
         delay(200);
         irsend.sendRaw(powerOff, 351, 38);
-        Serial.println("Enviou");
         server.send(200);
-      } else {  //  password don't match
+      } else {  
+        //  password don't match
         server.send(401, "text/plain", "401: Unauthorized");
       }
   });
